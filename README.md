@@ -1,8 +1,8 @@
-# Manning TWA - Optimizing Cost
+# Manning TWA - Testing for Microservices
 
-[![Build Status](https://travis-ci.com/andres-sacco/manning-twa-api.svg?branch=main)](https://travis-ci.com/andres-sacco/manning-twa-api) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.com/andres-sacco/manning-testing-microservices.svg?branch=main)](https://travis-ci.com/andres-sacco/manning-testing-microservices) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This project contains all the code related to the live series of “Optimize costs in Microservices”.
+This project contains all the code related to the live series of “Testing for Microservices”.
 
 ## Table of contents
 
@@ -14,6 +14,7 @@ The following are the most important topics in this file:
   - [Model](#Model)
   - [Flow](#Flow)
   - [Technologies](#Technologies)
+  - [Errors definition](#errors-definition)
   - [Internal libraries](#internal-libraries)
 - [Run the APIs](#run-the-apis)
 - [Documentation of APIs](#documentation-of-apis)
@@ -26,6 +27,8 @@ To use these microservices you need to have in your machine the following things
 - [Maven](https://maven.apache.org/)
 - [Git](https://git-scm.com/)
 - [Docker](https://www.docker.com/)
+
+If you don't have some of these tools in your machine installed, please follow the instructions in the official documentation of each tool.
 
 ## Architecture
 
@@ -52,19 +55,22 @@ All the microservices are split in different layers which only have access to ot
 
 Now, a little about what contain each layer:
 
-| Layer         | Description                                                                                                             | Packages                                              |
-|---------------|-------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------|
-| Controllers   | Contain all the endpoints and the documentation about the microservices                                                 | *.controller and *.controller.documentation           |
-| Services      | Contain all the definition of the services and the implementation                                                       | *.service and *.service.impl                          |
-| Validators    | Contain all the logic to validate a Request of a DTO                                                                    | *.validator                                           |
-| Repositories  | This layer contain the definition using interfaces and in some cases contain the specification to do a particular query | *.repository, *.repository.impl, and *.specification  |
-| Connectors    | Inside this layer there are all the configurations and the endpoints to communicate with external services.             | *.connector and *.connector.configuration             |
-| Helpers       | All the classes that help in different things in the entire microservices (e.g calculate the duration of a flight)      | *.helper                                              |
-| Configuration | All the logic to configure different aspects of the microservices (e.g format of the response, ports)                   | *.configuration                                       |
-| Exceptions    | Contain all the exceptions that each microservice can throw during the execution of a request                           | *.exception                                           |
-| Model         | This particular layer contain all the entities which access to the databases                                            | *.model                                               |
-| Enums/DTO     | In this layer you can find the classes and the enum that are using across the different layers                          | *.enums and *.dto                                     |
-
+| Layer                      | Description                                                                                                             | Packages                                              | Example                           |
+|----------------------------|-------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------|-----------------------------------|
+| Controllers                | Contain all the endpoints of the microservices                                                                          | *.controller                                          | UserController                    |
+| Resources                  | Contain all documentation about the microservices like definition of the endpoints and Swagger                          | *.controller.documentation                            | UserResources                     |
+| Request/Response           | In this layer you can find the Data Transfer Object (DTO) that are using across the different layers                    | *.dto.request, *.dto.response                         | UserRequest, UserResponse         |
+| Services                   | Contain all the definition of the services and the implementation                                                       | *.service and *.service.impl                          | IUserService, UserService         |
+| Validators                 | Contain all the logic to validate a Request of a DTO                                                                    | *.validator                                           | UserValidator                     |
+| Repositories               | This layer contain the definition using interfaces and in some cases contain the specification to do a particular query | *.repository, *.repository.impl, and *.specification  | UserRepository, UserSpecification |
+| Connectors                 | Inside this layer there are all the communications to external microservices or system.                                 | *.connector                                           | UserConnector                     |
+| Connector Configuration    | Inside this layer there are all the configurations related with connectors to external services.                        | *.connector.configuration                             | UserConnectorConfiguration        |
+| Helpers                    | All the classes that help in different things in the entire microservices                                               | *.helper                                              | UserHelper                        |
+| Configuration              | All the logic to configure different aspects of the microservices (e.g format of the response, ports)                   | *.configuration                                       | DatabaseConfiguration             |
+| Exceptions                 | Contain all the exceptions that each microservice can throw during the execution of a request                           | *.exception                                           | ApiException                      |
+| Model                      | This particular layer contain all the entities which access to the databases                                            | *.model                                               | User (no prefix/suffix)           |
+| Enums                      | In this layer you can find all the enum that are using across the different layers                                      | *.enums                                               | No prefix/suffix                  |
+| Data Transfer Object (DTO) | In this layer you can find the Data Transfer Object (DTO) that are using across the different layers                    | *.dto                                                 | UserDTO                           |
 
 #### Model
 
@@ -100,11 +106,19 @@ Also, you can see the flow with more detail in this picture:
 #### Technologies
 
 The microservices use some frameworks/libraries:
-- **[spring-boot](https://spring.io/projects/spring-boot)** is a common framework to develop a Java application easily because most of the things have a simple configuration.
-- **[springdoc-openapi](https://springdoc.org/)** is an implementation of the standard of Open API 3 to document the different endpoints of the microservices. Also, give you the chance to test each endpoint with some data of example.
-- **[chaos-monkey](https://codecentric.github.io/chaos-monkey-spring-boot/)** is a library that simulate random problems in the microservices following the principles of **[Chaos Engineering](https://www.gremlin.com/community/tutorials/chaos-engineering-the-history-principles-and-practice/)** like latency, exceptions. The idea to use this tool is to help to the developers to simulate random problems in the different microservices in a simple way.
-- **[orika](https://orika-mapper.github.io/orika-docs/)** is a library that helps to map the values from one object to another.
-- **[snakeyaml](https://bitbucket.org/asomov/snakeyaml/src/master/)** is a library to use YML files as resources in the different microservices.
+- **[Spring Boot](https://spring.io/projects/spring-boot)** is a common framework to develop a Java application easily because most of the things have a simple configuration.
+- **[Open Api](https://springdoc.org/)** is an implementation of the standard of Open API 3 to document the different endpoints of the microservices. Also, give you the chance to test each endpoint with some data of example.
+- **[Orika](https://orika-mapper.github.io/orika-docs/)** is a library that helps to map the values from one object to another.
+- **[Snakeyaml](https://bitbucket.org/asomov/snakeyaml/src/master/)** is a library to use YML files as resources in the different microservices.
+- **[Flyway](https://flywaydb.org/)** is a tool that works as a versioning of the changes in the database. When the application start check if exists or not a change from the actual model of the database.
+- **[Enforcer](https://maven.apache.org/enforcer/maven-enforcer-plugin/)** is a tool that helps to validate the minimum resources that you need to run the microservices. Also, helps to find possible problems or conflicts with the dependencies.
+
+#### Errors definition
+
+Each microservices needs to have some error to identify which type of exception occurs and the developers or business analysts could understand exactly what happened to one request.
+The following image help to understand how to define this code of error in each microservices:
+
+![Errors Definition](.images/Microservices-Errors-Definition.png)
 
 #### Internal libraries
 
@@ -115,7 +129,7 @@ All the microservices have dependencies of internal libraries which reduce the n
 ## Run the APIs
 
 To run API, please follow these steps:
-1. Clone the repository using this command **git clone https://github.com/andres-sacco/manning-twa-api.git**
+1. Clone the repository using this command **git clone https://github.com/andres-sacco/manning-testing-microservices.git**
 2. Open a terminal in the directory of the API and run **mvn clean install** this command compiles all the code and generates the jars. After doing that, run **docker-compose build** and  **docker-compose up** all the components run together.
 3. If everything works fine, open a web browser in the URL which appears in the documentation section.
 
@@ -123,7 +137,7 @@ Another option is to open each project in the IDE (Eclipse, IntelliJ) and run it
 
 If you have any doubt about the status of the microservices, you can open another terminal in the root directory of the code and run **docker ps**, this command will show you which port the different container expose, the status (up, down), and the names.
 
-Additionally to all this options there is [Makefile](https://opensource.com/article/18/8/what-how-makefile) which you can run all the steps using one command **make start** (this represent the first 3 steps) or **make start-infra** to run only the infrastructure. To stop all the containers you can execute **make stop** or **make stop-infra**.
+Additionally, to all this options there is [Makefile](https://opensource.com/article/18/8/what-how-makefile) which you can run all the steps using one command **make start** (this represent the first 3 steps) or **make start-infra** to run only the infrastructure. To stop all the containers you can execute **make stop** or **make stop-infra**.
 
 ## Documentation of APIs
 
@@ -142,6 +156,7 @@ Optionally you can use [**Postman**](https://www.postman.com/) or [**Insomia**](
 ## Considerations
 
 To run all the microservices in the same machine, you need to consider that the following ports need to be available to use it:
+
 | Name                    | Application   | Database    |
 | -----------             | -----------   | ----------- |
 | api-clusters            | 4070          | 6079        |

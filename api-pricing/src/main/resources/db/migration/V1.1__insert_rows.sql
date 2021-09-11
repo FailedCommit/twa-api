@@ -1,5 +1,5 @@
 INSERT INTO `commercial_policy` (`id`, `active`, `name`, `priority`, `start_date`, `expire_date`) VALUES ('1', 1, 'General', '10', '2021-01-01 00:00:00', '2023-01-01 00:00:00');
-INSERT INTO `commercial_policy` (`id`, `active`, `name`, `priority`, `start_date`, `expire_date`) VALUES ('2', 1, 'Special Carrier', '5', '2021-01-01 00:00:00', '2022-01-01 00:00:00');
+INSERT INTO `commercial_policy` (`id`, `active`, `name`, `priority`, `start_date`, `expire_date`) VALUES ('2', 1, 'Special Carrier', '5', '2021-01-01 00:00:00', '2022-05-01 00:00:00');
 INSERT INTO `commercial_policy` (`id`, `active`, `name`, `priority`, `start_date`, `expire_date`) VALUES ('3', 1, 'Ciber Week', '1', '2022-01-19 18:00:00', '2022-08-26 00:00:00');
 
 
