@@ -6,6 +6,7 @@ pipeline {
     stages {
         stage('Compile') {
             steps {
+                cd api-catalog
                 sh 'mvn clean compile'
             }
         } 
