@@ -1,8 +1,10 @@
 
 pipeline {
-    agent any
-    tools {
-        maven 'Maven 3.3.3'
+    agent {
+        docker {
+        image 'maven'
+        args '-v /root/.m2:/root/.m2'
+       }
     }
     stages {
         stage('Compile') {
