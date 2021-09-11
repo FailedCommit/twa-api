@@ -1,10 +1,7 @@
-
 pipeline {
-    agent {
-        docker {
-        image 'maven'
-        args '-v /root/.m2:/root/.m2'
-       }
+    agent any
+    tools {
+        maven 'Maven 3.3.3'
     }
     stages {
         stage('Compile') {
@@ -17,6 +14,7 @@ pipeline {
                 sh 'mvn test'
             }
         }
+        stage('Build artifacts') {
         stage('Package') {
             steps {
                 sh 'mvn -B -DskipTests package'
