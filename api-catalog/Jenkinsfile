@@ -6,8 +6,9 @@ pipeline {
     stages {
         stage('Compile') {
             steps {
-                sh 'cd api-catalog'
-                sh 'mvn clean compile'
+                dir('api-catalog') {
+                    sh 'mvn clean compile'
+                }
             }
         } 
         stage('Test') {
