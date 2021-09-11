@@ -4,24 +4,29 @@ pipeline {
         maven 'Maven 3.3.3'
     }
     stages {
-        dir('api-catalog') {
+
             stage('Compile') {
                 steps {
-
+                    dir('api-catalog') {
                         sh 'mvn clean compile'
                     }
+                }
 
             } 
             stage('Test') {
                 steps {
-                    sh 'mvn test'
+                    dir('api-catalog') {
+                        sh 'mvn test'
+                    }
                 }
             }
             stage('Package') {
                 steps {
-                    sh 'mvn -B -DskipTests package'
+                    dir('api-catalog') {
+                        sh 'mvn -B -DskipTests package'
+                    }
                 }
             }   
-                        }
+                       
     }
 }
