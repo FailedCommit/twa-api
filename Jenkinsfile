@@ -1,7 +1,7 @@
 
 pipeline {
     tools {
-    maven 'Maven 3.6.0'
+    maven 'Maven 3.3.3'
   }
     stages {
         stage('Build') {
