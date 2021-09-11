@@ -4,20 +4,29 @@ pipeline {
         maven 'Maven 3.3.3'
     }
     stages {
-        stage('Compile') {
-            steps {
-                sh 'mvn clean compile'
+
+            stage('Compile') {
+                steps {
+                    dir('api-itineraries-search') {
+                        sh 'mvn clean compile'
+                    }
+                }
+
+            } 
+            stage('Test') {
+                steps {
+                    dir('api-itineraries-search') {
+                        sh 'mvn test'
+                    }
+                }
             }
-        } 
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-        }
-        stage('Package') {
-            steps {
-                sh 'mvn -B -DskipTests package'
-            }
-        }        
+            stage('Package') {
+                steps {
+                    dir('api-itineraries-search') {
+                        sh 'mvn -B -DskipTests package'
+                    }
+                }
+            }   
+                       
     }
 }
