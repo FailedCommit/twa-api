@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
     tools {
@@ -14,7 +15,6 @@ pipeline {
                 sh 'mvn test'
             }
         }
-        stage('Build artifacts') {
         stage('Package') {
             steps {
                 sh 'mvn -B -DskipTests package'
