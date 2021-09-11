@@ -13,7 +13,7 @@ pipeline {
                 }
 
             } 
-            stage('Test') {
+            stage('Unit Test') {
                 steps {
                     dir('api-catalog') {
                         sh 'mvn test'
