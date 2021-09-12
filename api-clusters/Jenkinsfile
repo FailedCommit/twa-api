@@ -22,7 +22,7 @@ pipeline {
             }
             stage('Quality') {
                 steps {
-                    dir('api-catalog') {
+                    dir('api-clusters') {
                         sh 'mvn sonar:sonar -Dsonar.projectKey=api_clusters -Dsonar.host.url=http://sonar:9000 -Dsonar.login=c35e593688f22c115d459c2ffa1a8c37576f10ab'
                     }
                 }
