@@ -27,6 +27,12 @@ pipeline {
                     }
                 }
             }   
-                       
+            stage('Quality') {
+                steps {
+                    dir('api-catalog') {
+                        sh 'mvn sonar:sonar -Dsonar.projectKey=api_pricing -Dsonar.host.url=http://sonar:9000 -Dsonar.login=c35e593688f22c115d459c2ffa1a8c37576f10ab'
+                    }
+                }
+            }
     }
 }
