@@ -256,6 +256,9 @@
                             <additionalClasspathElements>
                                 <additionalClasspathElement>${project.basedir}/src/conf/integration</additionalClasspathElement>
                             </additionalClasspathElements>
+                            <systemPropertyVariables>
+                                <integration-wiremock.url>localhost:${integration-wiremock.port}</integration-wiremock.url>
+                            </systemPropertyVariables>
                         </configuration>
                     </plugin>
 
@@ -290,7 +293,7 @@
                                     <goal>run</goal>
                                 </goals>
                                 <configuration>
-                                    <dir>${project.basedir}/conf/integration/wiremock</dir>
+                                    <dir>${project.basedir}/src/conf/integration/wiremock</dir>
                                     <params>--port=${integration-wiremock.port} --global-response-templating</params>
                                 </configuration>
                             </execution>
