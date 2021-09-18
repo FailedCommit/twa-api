@@ -287,54 +287,6 @@
                             </execution>
                         </executions>
                     </plugin>
-
-                    <plugin>
-                        <groupId>io.fabric8</groupId>
-                        <artifactId>docker-maven-plugin</artifactId>
-                        <version>${docker-maven-plugin.version}</version>
-                        <executions>
-
-                            <execution>
-                                <id>start-docker-containers</id>
-                                <goals>
-                                    <goal>start</goal>
-                                </goals>
-                                <configuration>
-                                    <showLogs>true</showLogs>
-                                    <images>
-                                        <image>
-                                            <name>mysql:5.7</name>
-                                            <alias>mysql</alias>
-                                            <run>
-                                                <ports>
-                                                    <port>integration-mysql.port:3306</port>
-                                                </ports>
-                                                <restartPolicy>
-                                                    <name>on-failure</name>
-                                                </restartPolicy>
-                                                <env>
-                                                    <MYSQL_DATABASE>flights_catalog</MYSQL_DATABASE>
-                                                    <MYSQL_ROOT_PASSWORD>muppet</MYSQL_ROOT_PASSWORD>
-                                                    <MYSQL_ALLOW_EMPTY_PASSWORD>yes</MYSQL_ALLOW_EMPTY_PASSWORD>
-                                                </env>
-                                                <wait>
-                                                    <log>mysqld: ready for connections</log>
-                                                    <time>100000</time>
-                                                </wait>
-                                            </run>
-                                        </image>
-                                    </images>
-                                </configuration>
-                            </execution>
-
-                            <execution>
-                                <id>stop-docker-containers</id>
-                                <goals>
-                                    <goal>stop</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
                 </plugins>
             </build>
         </profile>
