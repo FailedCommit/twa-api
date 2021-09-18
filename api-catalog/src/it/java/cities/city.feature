@@ -4,9 +4,9 @@ Feature: Catalog
     * url AppUrl
 
   Scenario: City OK
-    * def catalog_response = read('response/catalog_response.json')
-    Given path '/cities/BUE'
+    * def catalog_response = read('response/catalog_response_success.json')
+    Given path '/city/BUE'
     When method GET
 
     Then status 200
-    Then match response == search_response
+    Then match response == catalog_response
