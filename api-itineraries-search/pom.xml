@@ -436,7 +436,6 @@
                             <arguments>
                                 <argument>--integration-wiremock.url=localhost:${integration-wiremock.port}</argument>
                             </arguments>
-
                         </configuration>
                         <executions>
                             <execution>
