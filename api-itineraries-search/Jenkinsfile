@@ -27,13 +27,6 @@ pipeline {
                     }
                 }
             }
-            stage('Performance Test') {
-                steps {
-                    dir('api-itineraries-search') {
-                        sh 'mvn integration-test -P PT -Dskip.surefire.tests'
-                    }
-                }
-            }
             stage('Quality') {
                 steps {
                     dir('api-itineraries-search') {
