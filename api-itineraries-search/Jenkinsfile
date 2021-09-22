@@ -33,6 +33,11 @@ pipeline {
                         sh 'mvn integration-test -P PT -Dskip.surefire.tests'
                     }
                 }
+                post {
+                    always {
+                        gatlingArchive()
+                    }
+                }
             }
             stage('Quality') {
                 steps {
