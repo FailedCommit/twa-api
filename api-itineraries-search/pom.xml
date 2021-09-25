@@ -147,19 +147,6 @@
 			</exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>com.intuit.karate</groupId>
-            <artifactId>karate-junit5</artifactId>
-            <version>${karate.version}</version>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.ow2.asm</groupId>
-                    <artifactId>asm</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
     </dependencies>
 
 	<build>
