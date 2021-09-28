@@ -20,7 +20,6 @@ public class DocumentationController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DocumentationController.class);
 
-    @ResponseBody
     @GetMapping
     public void redirectToDocumentation(HttpServletResponse response) {
         try {
