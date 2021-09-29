@@ -9,6 +9,7 @@ public class ArchitectureConstants {
     // Packages
     public static final String CONTROLLER_PACKAGE = "..controller..";
     public static final String RESOURCES_PACKAGE = "..controller.documentation..";
+    public static final String DTO_PACKAGE = "..dto..";
 
     // Explanations
     public static final String ANNOTATED_EXPLANATION = "Classes in %s package should be annotated with %s";
