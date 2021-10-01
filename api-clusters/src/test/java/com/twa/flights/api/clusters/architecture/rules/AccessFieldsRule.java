@@ -29,11 +29,9 @@ public class AccessFieldsRule {
     }
 
     public static ArchRule fieldsShouldHaveSetterAndGetterRule(Map<String, String> exclusions, String... packageNames) {
-        return fields().that()
-                .areDeclaredInClassesThat().resideInAnyPackage(packageNames)
-                .and().areDeclaredInClassesThat().areNotMemberClasses()
-                .and().arePrivate().and().areNotFinal().and().areNotStatic()
-                .should(buildFieldHaveGetterAndSetterCondition(exclusions))
+        return fields().that().areDeclaredInClassesThat().resideInAnyPackage(packageNames).and()
+                .areDeclaredInClassesThat().areNotMemberClasses().and().arePrivate().and().areNotFinal().and()
+                .areNotStatic().should(buildFieldHaveGetterAndSetterCondition(exclusions))
                 .because("Private fields should have setters and getters in " + Arrays.toString(packageNames));
     }
 
@@ -58,20 +56,16 @@ public class AccessFieldsRule {
                 String getter = calculateGetterPrefix(field.reflect().getType().getName()) + capitalize(name);
 
                 if (!publicMethods.contains(getter)) {
-                    String message = String
-                            .format(GETTER_OR_SETTER_NOT_PRESENT_ERROR_MESSAGE, field.getName(),
-                                    field.getOwner().getName(),
-                                    GETTER_PREFIX);
+                    String message = String.format(GETTER_OR_SETTER_NOT_PRESENT_ERROR_MESSAGE, field.getName(),
+                            field.getOwner().getName(), GETTER_PREFIX);
                     events.add(SimpleConditionEvent.violated(field, message));
                 }
 
                 String setter = SETTER_PREFIX + capitalize(name);
 
                 if (!publicMethods.contains(setter)) {
-                    String message = String
-                            .format(GETTER_OR_SETTER_NOT_PRESENT_ERROR_MESSAGE, field.getName(),
-                                    field.getOwner().getName(),
-                                    SETTER_PREFIX);
+                    String message = String.format(GETTER_OR_SETTER_NOT_PRESENT_ERROR_MESSAGE, field.getName(),
+                            field.getOwner().getName(), SETTER_PREFIX);
                     events.add(SimpleConditionEvent.violated(field, message));
                 }
 

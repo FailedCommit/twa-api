@@ -1,7 +1,6 @@
 package com.twa.flights.api.clusters.architecture.layers;
 
 import static com.twa.flights.api.clusters.architecture.general.CommonArchRules.publicConstructorsRule;
-import static com.twa.flights.api.clusters.architecture.general.ArchitectureConstants.namingExplanation;
 import static com.twa.flights.api.clusters.architecture.general.ArchitectureConstants.CONTROLLER_PACKAGE;
 import static com.twa.flights.api.clusters.architecture.general.ArchitectureConstants.CONTROLLER_SUFFIX;
 import static com.twa.flights.api.clusters.architecture.general.ArchitectureConstants.DEFAULT_PACKAGE;
@@ -25,12 +24,6 @@ class ControllerRulesTest {
 
     @ArchTest
     static final ArchRule publicConstructorsAreOnlyAllowed = publicConstructorsRule(CONTROLLER_PACKAGE);
-
-    @ArchTest
-    static final ArchRule classesInControllerShouldBeNamedProperly = classes().that()
-            .resideInAPackage(CONTROLLER_PACKAGE).and().resideOutsideOfPackage(RESOURCES_PACKAGE).should()
-            .haveSimpleNameEndingWith(CONTROLLER_SUFFIX)
-            .because(namingExplanation(CONTROLLER_PACKAGE, CONTROLLER_SUFFIX));
 
     @ArchTest
     static final ArchRule publicMethodsShouldBeProperlyAnnotated = methods().that().areDeclaredInClassesThat()

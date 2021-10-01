@@ -36,15 +36,20 @@
 		<orika-core.version>1.5.4</orika-core.version>
 		<springdoc-openapi-ui.version>1.5.8</springdoc-openapi-ui.version>
 		<guava.version>30.1.1-jre</guava.version>
+        <javassist.version>3.21.0-GA</javassist.version>
+        <objenesis.version>2.4</objenesis.version>
 
         <!-- Test -->
         <archunit-junit5.version>0.21.0</archunit-junit5.version>
 
 		<!-- TWA -->
 		<flights-common-dto.version>1.0.4</flights-common-dto.version>
+        <flights-architecture-test.version>1.0.5</flights-architecture-test.version>
 
 		<!-- Maven plugins -->
 		<spring-boot-maven-plugin.version>2.4.10</spring-boot-maven-plugin.version>
+        <arch-unit-maven-plugin.version>2.8.0</arch-unit-maven-plugin.version>
+        <arch-unit-build-plugin-core.version>2.8.0</arch-unit-build-plugin-core.version>
 	</properties>
 
 	<dependencyManagement>
@@ -56,8 +61,43 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-		</dependencies>
-	</dependencyManagement>
+
+            <dependency>
+                <groupId>org.objenesis</groupId>
+                <artifactId>objenesis</artifactId>
+                <version>${objenesis.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tngtech.archunit</groupId>
+                <artifactId>archunit-junit5</artifactId>
+                <version>${archunit-junit5.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.javassist</groupId>
+                <artifactId>javassist</artifactId>
+                <version>${javassist.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tngtech.archunit</groupId>
+                <artifactId>archunit-junit5-api</artifactId>
+                <version>${archunit-junit5.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tngtech.archunit</groupId>
+                <artifactId>archunit</artifactId>
+                <version>${archunit-junit5.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 	<dependencies>
 
@@ -163,6 +203,12 @@
             <version>${archunit-junit5.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.societegenerale.commons</groupId>
+            <artifactId>arch-unit-build-plugin-core</artifactId>
+            <version>${arch-unit-build-plugin-core.version}</version>
+        </dependency>
 	</dependencies>
 
 	<build>
@@ -172,6 +218,41 @@
 				<filtering>true</filtering>
 			</resource>
 		</resources>
+        <plugins>
+            <plugin>
+                <groupId>com.societegenerale.commons</groupId>
+                <artifactId>arch-unit-maven-plugin</artifactId>
+                <version>${arch-unit-maven-plugin.version}</version>
+                <configuration>
+                    <rules>
+                        <preConfiguredRules>
+                            <rule>com.twa.flights.architecture.rules.controller.ControllerShouldBeNameProperlyRuleTest</rule>
+                            <rule>com.twa.flights.architecture.rules.resources.ResourcesShouldBeNameProperlyRuleTest</rule>
+                        </preConfiguredRules>
+                    </rules>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>arch-test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.societegenerale.commons</groupId>
+                        <artifactId>arch-unit-build-plugin-core</artifactId>
+                        <version>${arch-unit-build-plugin-core.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.twa.flights.common</groupId>
+                        <artifactId>flights-architecture-test</artifactId>
+                        <version>${flights-architecture-test.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
 	</build>
 
     <profiles>

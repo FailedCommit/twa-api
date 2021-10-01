@@ -15,7 +15,8 @@ import static com.twa.flights.api.clusters.architecture.rules.AccessFieldsRule.f
 public class DTORulesTest {
 
     @ArchTest
-    static final ArchRule fieldsShouldHaveSetterAndGetterRule = fieldsShouldHaveSetterAndGetterRule(getExclusionFieldsWithSettersAndGetters(), ArchitectureConstants.DTO_PACKAGE);
+    static final ArchRule fieldsShouldHaveSetterAndGetterRule = fieldsShouldHaveSetterAndGetterRule(
+            getExclusionFieldsWithSettersAndGetters(), ArchitectureConstants.DTO_PACKAGE);
 
     private static Map<String, String> getExclusionFieldsWithSettersAndGetters() {
         String classExclusion = "com.twa.flights.api.clusters.dto.ErrorDTO";
