@@ -212,41 +212,6 @@
 				<filtering>true</filtering>
 			</resource>
 		</resources>
-        <plugins>
-            <plugin>
-                <groupId>com.societegenerale.commons</groupId>
-                <artifactId>arch-unit-maven-plugin</artifactId>
-                <version>${arch-unit-maven-plugin.version}</version>
-                <configuration>
-                    <rules>
-                        <preConfiguredRules>
-                            <rule>com.twa.flights.architecture.rules.controller.ControllerShouldBeNameProperlyRuleTest</rule>
-                            <rule>com.twa.flights.architecture.rules.resources.ResourcesShouldBeNameProperlyRuleTest</rule>
-                        </preConfiguredRules>
-                    </rules>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>arch-test</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.societegenerale.commons</groupId>
-                        <artifactId>arch-unit-build-plugin-core</artifactId>
-                        <version>${arch-unit-build-plugin-core.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>com.twa.flights.common</groupId>
-                        <artifactId>flights-architecture-test</artifactId>
-                        <version>${flights-architecture-test.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-        </plugins>
 	</build>
 
     <profiles>
