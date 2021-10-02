@@ -203,6 +203,13 @@
             <version>${archunit-junit5.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.twa.flights.common</groupId>
+            <artifactId>flights-architecture-test</artifactId>
+            <version>${flights-architecture-test.version}</version>
+            <scope>test</scope>
+        </dependency>
 	</dependencies>
 
 	<build>
@@ -244,11 +251,6 @@
                                 <groupId>com.societegenerale.commons</groupId>
                                 <artifactId>arch-unit-build-plugin-core</artifactId>
                                 <version>${arch-unit-build-plugin-core.version}</version>
-                            </dependency>
-                            <dependency>
-                                <groupId>com.twa.flights.common</groupId>
-                                <artifactId>flights-architecture-test</artifactId>
-                                <version>${flights-architecture-test.version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>
