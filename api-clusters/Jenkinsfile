@@ -20,6 +20,14 @@ pipeline {
                     }
                 }
             }
+            stage('Architecture Test') {
+                steps {
+                    dir('api-clusters') {
+                        sh 'mvn test -P AT -Dmaven.test.skip=true'
+                    }
+                }
+            }
+
             stage('Quality') {
                 steps {
                     dir('api-clusters') {
