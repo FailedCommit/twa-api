@@ -27,7 +27,7 @@
 
 	<properties>
 		<application.name>api-clusters</application.name>
-		<application.mainClass>com.twa.flights.api.clusters.App</application.mainClass>
+		<application.mainClass>com.twa.flights.api.clusters.ClustersApp</application.mainClass>
 
 		<!-- Spring -->
 		<spring-boot.version>2.4.10</spring-boot.version>
@@ -175,7 +175,7 @@
                         <artifactId>spring-boot-maven-plugin</artifactId>
                         <version>${spring-boot-maven-plugin.version}</version>
                         <configuration>
-                            <mainClass>com.twa.flights.api.clusters.App</mainClass>
+                            <mainClass>com.twa.flights.api.clusters.ClustersApp</mainClass>
                         </configuration>
                         <executions>
                             <execution>

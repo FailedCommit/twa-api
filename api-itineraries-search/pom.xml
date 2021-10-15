@@ -27,7 +27,7 @@
 
 	<properties>
 		<application.name>api-itineraries-search</application.name>
-		<application.mainClass>com.twa.flights.api.itineraries.search.App</application.mainClass>
+		<application.mainClass>com.twa.flights.api.itineraries.search.ItenerariesSearchApp</application.mainClass>
 
 		<!-- Spring -->
 		<spring-boot.version>2.4.10</spring-boot.version>
@@ -168,7 +168,7 @@
                         <artifactId>spring-boot-maven-plugin</artifactId>
                         <version>${spring-boot-maven-plugin.version}</version>
                         <configuration>
-                            <mainClass>com.twa.flights.api.itineraries.search.App</mainClass>
+                            <mainClass>com.twa.flights.api.itineraries.search.ItenerariesSearchApp</mainClass>
                         </configuration>
                         <executions>
                             <execution>
