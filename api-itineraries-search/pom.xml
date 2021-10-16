@@ -27,7 +27,7 @@
 
 	<properties>
 		<application.name>api-itineraries-search</application.name>
-		<application.mainClass>com.twa.flights.api.itineraries.search.ItenerariesSearchApp</application.mainClass>
+		<application.mainClass>com.twa.flights.api.itineraries.search.App</application.mainClass>
 
 		<!-- Spring -->
 		<spring-boot.version>2.4.10</spring-boot.version>
@@ -37,15 +37,15 @@
 		<springdoc-openapi-ui.version>1.5.8</springdoc-openapi-ui.version>
 		<guava.version>30.1.1-jre</guava.version>
 
-        <!-- TWA -->
+		<!-- TWA -->
 		<flights-common-dto.version>1.0.4</flights-common-dto.version>
 
-        <!--Tests-->
-        <karate.version>1.1.0</karate.version>
+		<!--Tests-->
+		<karate.version>1.1.0</karate.version>
 
 		<!-- Maven plugins -->
 		<spring-boot-maven-plugin.version>2.4.10</spring-boot-maven-plugin.version>
-<!--		<maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>-->
+		<wiremock-maven-plugin.version>7.0.0</wiremock-maven-plugin.version>
 	</properties>
 
 	<dependencyManagement>
@@ -146,15 +146,22 @@
 					<artifactId>asm</artifactId>
 				</exclusion>
 			</exclusions>
-        </dependency>
+		</dependency>
 
 		<dependency>
 			<groupId>com.intuit.karate</groupId>
 			<artifactId>karate-junit5</artifactId>
-			<version>1.1.0</version>
+			<version>${karate.version}</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.ow2.asm</groupId>
+					<artifactId>asm</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
-    </dependencies>
+	</dependencies>
 
 	<build>
 		<resources>
@@ -248,12 +255,59 @@
 							<additionalClasspathElements>
 								<additionalClasspathElement>${project.basedir}/src/conf/integration</additionalClasspathElement>
 							</additionalClasspathElements>
+							<systemPropertyVariables>
+								<integration-wiremock.url>localhost:${integration-wiremock.port}</integration-wiremock.url>
+							</systemPropertyVariables>
 						</configuration>
+					</plugin>
+
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<version>${build-helper-maven-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>reserve-network-port</id>
+								<goals>
+									<goal>reserve-network-port</goal>
+								</goals>
+								<phase>process-resources</phase>
+								<configuration>
+									<portNames>
+										<portName>integration-wiremock.port</portName>
+									</portNames>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+
+					<plugin>
+						<groupId>uk.co.automatictester</groupId>
+						<artifactId>wiremock-maven-plugin</artifactId>
+						<version>${wiremock-maven-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>start-wiremock</id>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<dir>${project.basedir}/src/conf/integration/wiremock</dir>
+									<params>--port=${integration-wiremock.port} --global-response-templating</params>
+								</configuration>
+							</execution>
+							<execution>
+								<id>stop-wiremock</id>
+								<goals>
+									<goal>stop</goal>
+								</goals>
+							</execution>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>
 		</profile>
-    </profiles>
+	</profiles>
 
 	<repositories>
 		<repository>
@@ -265,6 +319,6 @@
 			<id>maven2</id>
 			<name>maven2</name>
 			<url>https://repo.maven.apache.org/maven2</url>
-		</repository> 
+		</repository>
 	</repositories>
 </project>
