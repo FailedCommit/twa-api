@@ -8,14 +8,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 @ComponentScan(basePackages = { "com.twa.flights.api" })
-public class ItenerariesSearchApp implements WebMvcConfigurer {
+public class App implements WebMvcConfigurer {
 
     public static void main(String[] args) {
         run(args);
     }
 
     public static ConfigurableApplicationContext run(String[] args) {
-        return SpringApplication.run(ItenerariesSearchApp.class, args);
+        return SpringApplication.run(App.class, args);
     }
 
 }

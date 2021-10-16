@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>com.twa.flights.common</groupId>
 		<artifactId>flights-parent</artifactId>
 		<version>1.0.5</version>
-		<relativePath/>
+		<relativePath />
 	</parent>
 
 	<groupId>com.twa.flights</groupId>
@@ -37,12 +37,13 @@
 		<springdoc-openapi-ui.version>1.5.8</springdoc-openapi-ui.version>
 		<guava.version>30.1.1-jre</guava.version>
 
-		<karate.version>1.1.0</karate.version>
+        <!--Tests-->
+        <karate.version>1.1.0</karate.version>
 
 		<!-- Maven plugins -->
 		<spring-boot-maven-plugin.version>2.4.10</spring-boot-maven-plugin.version>
-		<wiremock-maven-plugin.version>4.4.0</wiremock-maven-plugin.version>
-		<docker-maven-plugin.version>0.37.0</docker-maven-plugin.version>
+        <wiremock-maven-plugin.version>4.4.0</wiremock-maven-plugin.version>
+        <docker-maven-plugin.version>0.20.1</docker-maven-plugin.version>
 	</properties>
 
 	<dependencyManagement>
@@ -154,193 +155,190 @@
 			</exclusions>
 		</dependency>
 
-		<dependency>
-			<groupId>com.intuit.karate</groupId>
-			<artifactId>karate-junit5</artifactId>
-			<version>${karate.version}</version>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.ow2.asm</groupId>
-					<artifactId>asm</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+        <dependency>
+            <groupId>com.intuit.karate</groupId>
+            <artifactId>karate-junit5</artifactId>
+            <version>${karate.version}</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.ow2.asm</groupId>
+                    <artifactId>asm</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 	</dependencies>
 
-	<build>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
 
-		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>${build-helper-maven-plugin.version}</version>
-				<executions>
-					<execution>
-						<id>add-test-resource</id>
-						<phase>generate-test-sources</phase>
-						<goals>
-							<goal>add-test-resource</goal>
-						</goals>
-						<configuration>
-							<resources>
-								<resource>
-									<directory>src/conf/integration</directory>
-								</resource>
-								<resource>
-									<directory>src/it/java</directory>
-									<excludes>
-										<exclude>**/*.java</exclude>
-									</excludes>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-					<execution>
-						<id>add-test-source</id>
-						<goals>
-							<goal>add-test-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>src/it/java</source>
-							</sources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>${build-helper-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>add-test-resource</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>add-test-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>src/conf/integration</directory>
+                                </resource>
+                                <resource>
+                                    <directory>src/it/java</directory>
+                                    <excludes>
+                                        <exclude>**/*.java</exclude>
+                                    </excludes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-test-source</id>
+                        <goals>
+                            <goal>add-test-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/it/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
-	<profiles>
-		<profile>
-			<id>PK</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.springframework.boot</groupId>
-						<artifactId>spring-boot-maven-plugin</artifactId>
-						<version>${spring-boot-maven-plugin.version}</version>
-						<configuration>
-							<mainClass>com.twa.flights.api.catalog.App</mainClass>
-						</configuration>
-						<executions>
-							<execution>
-								<goals>
-									<goal>repackage</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>QC</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-failsafe-plugin</artifactId>
-						<version>${maven-failsafe-plugin.version}</version>
-						<executions>
-							<execution>
-								<goals>
-									<goal>integration-test</goal>
-									<goal>verify</goal>
-								</goals>
-							</execution>
-						</executions>
-						<configuration>
-							<additionalClasspathElements>
-								<additionalClasspathElement>${project.basedir}/src/conf/integration
-								</additionalClasspathElement>
-							</additionalClasspathElements>
-							<systemPropertyVariables>
-								<integration-mysql.url>
-									jdbc:mysql://localhost:${integration-mysql.port}/flights_catalog?autoReconnect=true
-								</integration-mysql.url>
-							</systemPropertyVariables>
-						</configuration>
-					</plugin>
+    <profiles>
+        <profile>
+            <id>PK</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                        <version>${spring-boot-maven-plugin.version}</version>
+                        <configuration>
+                            <mainClass>com.twa.flights.api.catalog.App</mainClass>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>repackage</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>QC</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>${maven-failsafe-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <additionalClasspathElements>
+                                <additionalClasspathElement>${project.basedir}/src/conf/integration</additionalClasspathElement>
+                            </additionalClasspathElements>
+                            <systemPropertyVariables>
+                                <integration-mysql.url>jdbc:mysql://localhost:${integration-mysql.port}/flights_catalog?autoReconnect=true</integration-mysql.url>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
 
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>build-helper-maven-plugin</artifactId>
-						<version>${build-helper-maven-plugin.version}</version>
-						<executions>
-							<execution>
-								<id>reserve-network-port</id>
-								<goals>
-									<goal>reserve-network-port</goal>
-								</goals>
-								<phase>process-resources</phase>
-								<configuration>
-									<portNames>
-										<portName>integration-mysql.port</portName>
-									</portNames>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>${build-helper-maven-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>reserve-network-port</id>
+                                <goals>
+                                    <goal>reserve-network-port</goal>
+                                </goals>
+                                <phase>process-resources</phase>
+                                <configuration>
+                                    <portNames>
+                                        <portName>integration-mysql.port</portName>
+                                    </portNames>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
 
-					<plugin>
-						<groupId>io.fabric8</groupId>
-						<artifactId>docker-maven-plugin</artifactId>
-						<version>${docker-maven-plugin.version}</version>
-						<executions>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>${docker-maven-plugin.version}</version>
+                        <executions>
 
-							<execution>
-								<id>start-docker-containers</id>
-								<goals>
-									<goal>start</goal>
-								</goals>
-								<configuration>
-									<images>
-										<image>
-											<name>mysql:5.7</name>
-											<alias>mysql</alias>
-											<run>
-												<ports>
-													<port>integration-mysql.port:3306</port>
-												</ports>
-												<restartPolicy>
-													<name>on-failure</name>
-												</restartPolicy>
-												<env>
-													<MYSQL_DATABASE>flights_catalog</MYSQL_DATABASE>
-													<MYSQL_ROOT_PASSWORD>muppet</MYSQL_ROOT_PASSWORD>
-													<MYSQL_ALLOW_EMPTY_PASSWORD>yes</MYSQL_ALLOW_EMPTY_PASSWORD>
-												</env>
-												<wait>
-													<log>mysqld: ready for connections</log>
-													<time>100000</time>
-												</wait>
-											</run>
-										</image>
-									</images>
-									<showLogs>true</showLogs>
-								</configuration>
-							</execution>
+                            <execution>
+                                <id>start-docker-containers</id>
+                                <goals>
+                                    <goal>start</goal>
+                                </goals>
+                                <configuration>
+                                    <showLogs>true</showLogs>
+                                    <images>
+                                        <image>
+                                            <name>mysql:5.7</name>
+                                            <alias>mysql</alias>
+                                            <run>
+                                                <ports>
+                                                    <port>integration-mysql.port:3306</port>
+                                                </ports>
+                                                <restartPolicy>
+                                                    <name>on-failure</name>
+                                                </restartPolicy>
+                                                <env>
+                                                    <MYSQL_DATABASE>flights_catalog</MYSQL_DATABASE>
+                                                    <MYSQL_ROOT_PASSWORD>muppet</MYSQL_ROOT_PASSWORD>
+                                                    <MYSQL_ALLOW_EMPTY_PASSWORD>yes</MYSQL_ALLOW_EMPTY_PASSWORD>
+                                                </env>
+                                                <wait>
+                                                    <log>mysqld: ready for connections</log>
+                                                    <time>100000</time>
+                                                </wait>
+                                            </run>
+                                        </image>
+                                    </images>
+                                </configuration>
+                            </execution>
 
-							<execution>
-								<id>stop-docker-containers</id>
-								<goals>
-									<goal>stop</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
+                            <execution>
+                                <id>stop-docker-containers</id>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 	<repositories>
 		<repository>
@@ -352,6 +350,6 @@
 			<id>maven2</id>
 			<name>maven2</name>
 			<url>https://repo.maven.apache.org/maven2</url>
-		</repository>
+		</repository> 
 	</repositories>
 </project>

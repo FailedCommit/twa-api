@@ -1,8 +1,0 @@
-{
-  "build":{
-    "groupId":"com.twa.flights",
-    "artifactId":"api-itineraries-search",
-    "version": "#notnull",
-    "appName": "api-itineraries-search"
-  }
-}

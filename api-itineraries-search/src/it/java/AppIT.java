@@ -1,4 +1,4 @@
-import com.twa.flights.api.itineraries.search.ItenerariesSearchApp;
+import com.twa.flights.api.itineraries.search.App;
 
 import com.intuit.karate.junit5.Karate;
 
@@ -10,14 +10,14 @@ import org.springframework.core.env.Environment;
 
 import java.util.Objects;
 
-class ItenerariesSearchAppIT {
+class AppIT {
 
     private static ConfigurableApplicationContext context;
 
     @BeforeAll
     static void beforeClass() {
         if (context == null) {
-            context = ItenerariesSearchApp.run(new String[] { "--server.port=0" });
+            context = App.run(new String[] { "--server.port=0" });
             Environment env = context.getBean(Environment.class);
             System.setProperty("AppIT.server.port", Objects.requireNonNull(env.getProperty("local.server.port")));
         }

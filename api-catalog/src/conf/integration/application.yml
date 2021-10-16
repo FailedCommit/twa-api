@@ -1,6 +1,6 @@
 management:
   health.db.enabled: false
-  endpoints:
+  endpoints:    
     web:
       base-path: /
       exposure:
@@ -19,7 +19,7 @@ jetty:
 spring:
   profiles:
     active: default
-
+       
   flyway:
     locations: classpath:db/migration
     sql-migration-prefix: V
@@ -35,9 +35,9 @@ spring:
     maxActive: 100
   jpa:
     show-sql: false
-    generate-ddl: false
-    properties:
+    generate-ddl: false    
+    properties:    
       hibernate:
-        ejb.naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        ejb.naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy                
         dialect: org.hibernate.dialect.MySQLDialect
         hbm2ddl.auto: validate

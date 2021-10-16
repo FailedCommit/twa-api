@@ -11,5 +11,4 @@ Feature: Search
     When method GET
 
     Then status 200
-    And assert response.length == 19
-#    Then match response == search_response
+    Then match response == search_response
