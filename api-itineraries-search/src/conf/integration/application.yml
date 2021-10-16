@@ -1,6 +1,6 @@
 management:
   health.db.enabled: false
-  endpoints:
+  endpoints:    
     web:
       base-path: /
       exposure:
@@ -20,14 +20,14 @@ spring:
   profiles:
     active: default
 
-connector:
-  provider-alpha:
-    host: ${integration-wiremock.url}
-    responseTimeout: 5000
-    connectionTimeout: 5000
-    readTimeout: 5000
-  provider-beta:
-    host: ${integration-wiremock.url}
-    responseTimeout: 5000
-    connectionTimeout: 5000
-    readTimeout: 5000
+connector:  
+   provider-alpha:
+      host: ${integration-wiremock.url}
+      responseTimeout: 5000
+      connectionTimeout: 5000
+      readTimeout: 5000         
+   provider-beta:
+      host: ${integration-wiremock.url}
+      responseTimeout: 5000
+      connectionTimeout: 5000
+      readTimeout: 5000 

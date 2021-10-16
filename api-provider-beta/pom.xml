@@ -27,7 +27,7 @@
 
 	<properties>
 		<application.name>api-provider-beta</application.name>
-		<application.mainClass>com.twa.flights.api.provider.beta.BetaProviderApp</application.mainClass>
+		<application.mainClass>com.twa.flights.api.provider.beta.App</application.mainClass>
 
 		<!-- Spring -->
 		<spring-boot.version>2.4.10</spring-boot.version>
@@ -185,7 +185,7 @@
                         <artifactId>spring-boot-maven-plugin</artifactId>
                         <version>${spring-boot-maven-plugin.version}</version>
                         <configuration>
-                            <mainClass>com.twa.flights.api.provider.beta.BetaProviderApp</mainClass>
+                            <mainClass>com.twa.flights.api.provider.beta.App</mainClass>
                         </configuration>
                         <executions>
                             <execution>
