@@ -12,11 +12,30 @@ pipeline {
                     }
                 }
 
-            } 
+            }
             stage('Test') {
                 steps {
                     dir('api-itineraries-search') {
                         sh 'mvn test'
+                    }
+                }
+            }
+            stage('API Test') {
+                steps {
+                    dir('api-itineraries-search') {
+                        sh 'mvn verify -P QC -Dskip.surefire.tests'
+                    }
+                }
+            }
+            stage('Performance Test') {
+                steps {
+                    dir('api-itineraries-search') {
+                        sh 'mvn integration-test -P PT -Dskip.surefire.tests'
+                    }
+                }
+                post {
+                    always {
+                        gatlingArchive()
                     }
                 }
             }
