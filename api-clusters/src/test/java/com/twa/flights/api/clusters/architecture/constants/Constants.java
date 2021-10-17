@@ -8,6 +8,7 @@ public class Constants {
     public static final String ANNOTATED_EXPLANATION = "Classes in %s package should be annotated with %s";
     public static final String NAMING = "Classes in %s package should be named with %s suffix";
     public static final String DEFAULT_PACKAGE = "com.twa.flights.api";
+    public static final String DTO_PACKAGE = "..dto..";
 
     private Constants() {
     }
