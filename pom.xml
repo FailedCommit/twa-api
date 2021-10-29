@@ -26,7 +26,8 @@
 		<module>api-pricing</module>
 		<module>api-provider-alpha</module>
 		<module>api-provider-beta</module>
-	</modules>
+        <module>flights-architecture-test</module>
+    </modules>
 
 	<properties>
         <git-changelog-maven-plugin.version>1.78</git-changelog-maven-plugin.version>
